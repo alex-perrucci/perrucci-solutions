@@ -1,12 +1,11 @@
-{
-  email info@perruccisolutions.com
-}
+# Perrucci Solutions — snippet per il Caddy GIA' esistente sulla VPS.
+# NON sostituire il Caddyfile attuale di Fluxa Platform / GuidaLavoroItalia.
+# I container Perrucci si collegano alla rete Docker esterna `fluxa_edge`,
+# già usata dal Caddy pubblico `fluxa-caddy-1`.
 
 perruccisolutions.com, www.perruccisolutions.com {
   encode zstd gzip
-  root * /srv
-  try_files {path} {path}/ {path}/index.html
-  file_server
+  reverse_proxy perrucci-web:80
 
   header {
     X-Content-Type-Options nosniff
@@ -18,5 +17,5 @@ perruccisolutions.com, www.perruccisolutions.com {
 
 api.perruccisolutions.com {
   encode zstd gzip
-  reverse_proxy marketing:8000
+  reverse_proxy perrucci-marketing:8000
 }

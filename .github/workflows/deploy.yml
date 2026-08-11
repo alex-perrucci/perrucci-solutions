@@ -12,7 +12,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Check deploy configuration
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -25,7 +24,8 @@ jobs:
             echo 'DEPLOY_CONFIGURED=false' >> "$GITHUB_ENV"
             echo 'Deploy skipped: configure VPS_HOST, VPS_USER and VPS_SSH_KEY GitHub Secrets.'
           fi
-      - name: Configure SSH
+
+      - name: Configure VPS SSH
         if: env.DEPLOY_CONFIGURED == 'true'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
@@ -33,22 +33,23 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           mkdir -p ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/perrucci_vps
+          chmod 600 ~/.ssh/perrucci_vps
           ssh-keyscan -p "${VPS_PORT:-22}" -H "$VPS_HOST" >> ~/.ssh/known_hosts
-      - name: Sync application
+
+      - name: Pull and deploy on VPS
         if: env.DEPLOY_CONFIGURED == 'true'
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
-          rsync -az --delete --exclude '.git' --exclude '.env' --exclude 'data/' -e "ssh -p ${VPS_PORT:-22}" ./ "$VPS_USER@$VPS_HOST:/opt/perrucci-solutions/"
-      - name: Build and restart
-        if: env.DEPLOY_CONFIGURED == 'true'
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_PORT: ${{ secrets.VPS_PORT }}
-        run: |
-          ssh -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" 'cd /opt/perrucci-solutions && docker compose up -d --build --remove-orphans && docker image prune -f'
+          ssh -i ~/.ssh/perrucci_vps -o IdentitiesOnly=yes -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" <<'REMOTE'
+            set -euo pipefail
+            cd /opt/perrucci-solutions
+            git fetch --prune origin main
+            git checkout main
+            git reset --hard origin/main
+            docker compose up -d --build --remove-orphans
+            docker image prune -f
+          REMOTE

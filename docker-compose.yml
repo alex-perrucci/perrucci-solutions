@@ -1,5 +1,7 @@
+name: perrucci-solutions
+
 services:
-  marketing:
+  perrucci-marketing:
     build:
       context: .
       dockerfile: services/marketing/Dockerfile
@@ -9,8 +11,10 @@ services:
       - ./data:/data
     expose:
       - "8000"
+    networks:
+      - shared_edge
 
-  web:
+  perrucci-web:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
@@ -18,15 +22,13 @@ services:
         NEXT_PUBLIC_MARKETING_API_URL: ${NEXT_PUBLIC_MARKETING_API_URL:-https://api.perruccisolutions.com}
     restart: unless-stopped
     depends_on:
-      - marketing
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
+      - perrucci-marketing
+    expose:
+      - "80"
+    networks:
+      - shared_edge
 
-volumes:
-  caddy_data:
-  caddy_config:
+networks:
+  shared_edge:
+    external: true
+    name: fluxa_edge

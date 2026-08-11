@@ -9,4 +9,4 @@ RUN npm run build
 
 FROM caddy:2-alpine
 COPY --from=build /app/out /srv
-COPY infra/Caddyfile /etc/caddy/Caddyfile
+RUN printf ':80 {\n  encode zstd gzip\n  root * /srv\n  try_files {path} {path}/ {path}/index.html\n  file_server\n  header {\n    X-Content-Type-Options nosniff\n    Referrer-Policy strict-origin-when-cross-origin\n    X-Frame-Options DENY\n    Permissions-Policy "camera=(), microphone=(), geolocation=()"\n  }\n}\n' > /etc/caddy/Caddyfile
