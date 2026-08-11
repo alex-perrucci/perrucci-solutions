@@ -1,0 +1,32 @@
+services:
+  marketing:
+    build:
+      context: .
+      dockerfile: services/marketing/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+    expose:
+      - "8000"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_MARKETING_API_URL: ${NEXT_PUBLIC_MARKETING_API_URL:-https://api.perruccisolutions.com}
+    restart: unless-stopped
+    depends_on:
+      - marketing
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

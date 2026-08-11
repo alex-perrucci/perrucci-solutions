@@ -1,0 +1,22 @@
+{
+  email info@perruccisolutions.com
+}
+
+perruccisolutions.com, www.perruccisolutions.com {
+  encode zstd gzip
+  root * /srv
+  try_files {path} {path}/ {path}/index.html
+  file_server
+
+  header {
+    X-Content-Type-Options nosniff
+    Referrer-Policy strict-origin-when-cross-origin
+    X-Frame-Options DENY
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  }
+}
+
+api.perruccisolutions.com {
+  encode zstd gzip
+  reverse_proxy marketing:8000
+}
