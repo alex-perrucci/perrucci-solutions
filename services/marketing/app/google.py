@@ -26,13 +26,20 @@ async def search_console_summary(days: int = 28) -> dict | None:
     start = end - timedelta(days=days - 1)
     site = quote(config.GOOGLE_SEARCH_CONSOLE_SITE, safe='')
     url = f'https://www.googleapis.com/webmasters/v3/sites/{site}/searchAnalytics/query'
-    payload = {'startDate': start.isoformat(), 'endDate': end.isoformat(), 'dimensions': ['query'], 'rowLimit': 50}
+    headers = {'Authorization': f'Bearer {token}'}
+    base = {'startDate': start.isoformat(), 'endDate': end.isoformat()}
+
     async with httpx.AsyncClient(timeout=30) as client:
-        response = await client.post(url, headers={'Authorization': f'Bearer {token}'}, json=payload)
-        response.raise_for_status()
-        rows = response.json().get('rows', [])
-    clicks = sum(float(r.get('clicks', 0)) for r in rows)
-    impressions = sum(float(r.get('impressions', 0)) for r in rows)
+        totals_response = await client.post(url, headers=headers, json={**base, 'rowLimit': 1})
+        totals_response.raise_for_status()
+        totals_rows = totals_response.json().get('rows', [])
+        query_response = await client.post(url, headers=headers, json={**base, 'dimensions': ['query'], 'rowLimit': 50})
+        query_response.raise_for_status()
+        rows = query_response.json().get('rows', [])
+
+    totals = totals_rows[0] if totals_rows else {}
+    clicks = float(totals.get('clicks', 0))
+    impressions = float(totals.get('impressions', 0))
     top = sorted(rows, key=lambda r: r.get('impressions', 0), reverse=True)[:8]
     return {'clicks': round(clicks), 'impressions': round(impressions), 'ctr': (clicks / impressions if impressions else 0), 'queries': top}
 

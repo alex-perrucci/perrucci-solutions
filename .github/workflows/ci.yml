@@ -31,3 +31,4 @@ jobs:
       - run: python -m compileall services/marketing/app
       - run: cp .env.example .env
       - run: docker compose config
+      - run: docker compose build
