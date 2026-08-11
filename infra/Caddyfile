@@ -1,10 +1,11 @@
 # Perrucci Solutions — snippet per il Caddy GIA' esistente sulla VPS.
 # NON sostituire il Caddyfile attuale di Fluxa Platform / GuidaLavoroItalia.
-# Prima del reload verificare che le porte locali 8088 e 8098 siano libere.
+# I container Perrucci si collegano alla rete Docker esterna `fluxa_edge`,
+# già usata dal Caddy pubblico `fluxa-caddy-1`.
 
 perruccisolutions.com, www.perruccisolutions.com {
   encode zstd gzip
-  reverse_proxy 127.0.0.1:8088
+  reverse_proxy perrucci-web:80
 
   header {
     X-Content-Type-Options nosniff
@@ -16,5 +17,5 @@ perruccisolutions.com, www.perruccisolutions.com {
 
 api.perruccisolutions.com {
   encode zstd gzip
-  reverse_proxy 127.0.0.1:8098
+  reverse_proxy perrucci-marketing:8000
 }
