@@ -32,9 +32,14 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
+          set -euo pipefail
           mkdir -p ~/.ssh
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/perrucci_vps
+          printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/perrucci_vps
           chmod 600 ~/.ssh/perrucci_vps
+          ssh-keygen -y -f ~/.ssh/perrucci_vps >/dev/null || {
+            echo 'VPS_SSH_KEY is not a valid OpenSSH private key. Paste the full private key, including BEGIN/END lines.' >&2
+            exit 1
+          }
           ssh-keyscan -p "${VPS_PORT:-22}" -H "$VPS_HOST" >> ~/.ssh/known_hosts
 
       - name: Pull and deploy on VPS
