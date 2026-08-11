@@ -1,21 +1,25 @@
-# Perrucci Solutions — snippet per il Caddy GIA' esistente sulla VPS.
-# NON sostituire il Caddyfile attuale di Fluxa Platform / GuidaLavoroItalia.
-# I container Perrucci si collegano alla rete Docker esterna `fluxa_edge`,
-# già usata dal Caddy pubblico `fluxa-caddy-1`.
+# Perrucci Solutions — Caddy drop-in for the shared VPS reverse proxy.
+# Install as /data/sites-enabled/perrucci.caddy inside fluxa-caddy-1
+# (host volume: /var/lib/docker/volumes/fluxa_caddy_data/_data/sites-enabled/perrucci.caddy).
+# Requires the shared Caddyfile to define (common_security) and import /data/sites-enabled/*.
 
 perruccisolutions.com, www.perruccisolutions.com {
-  encode zstd gzip
-  reverse_proxy perrucci-web:80
-
-  header {
-    X-Content-Type-Options nosniff
-    Referrer-Policy strict-origin-when-cross-origin
-    X-Frame-Options DENY
-    Permissions-Policy "camera=(), microphone=(), geolocation=()"
-  }
+	import common_security
+	reverse_proxy perrucci-web:80
+	log {
+		output stdout
+		format json
+	}
 }
 
 api.perruccisolutions.com {
-  encode zstd gzip
-  reverse_proxy perrucci-marketing:8000
+	import common_security
+	request_body {
+		max_size 2MB
+	}
+	reverse_proxy perrucci-marketing:8000
+	log {
+		output stdout
+		format json
+	}
 }
