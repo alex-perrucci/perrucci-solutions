@@ -1,12 +1,10 @@
-{
-  email info@perruccisolutions.com
-}
+# Perrucci Solutions — snippet per il Caddy GIA' esistente sulla VPS.
+# NON sostituire il Caddyfile attuale di Fluxa Platform / GuidaLavoroItalia.
+# Prima del reload verificare che le porte locali 8088 e 8098 siano libere.
 
 perruccisolutions.com, www.perruccisolutions.com {
   encode zstd gzip
-  root * /srv
-  try_files {path} {path}/ {path}/index.html
-  file_server
+  reverse_proxy 127.0.0.1:8088
 
   header {
     X-Content-Type-Options nosniff
@@ -18,5 +16,5 @@ perruccisolutions.com, www.perruccisolutions.com {
 
 api.perruccisolutions.com {
   encode zstd gzip
-  reverse_proxy marketing:8000
+  reverse_proxy 127.0.0.1:8098
 }
