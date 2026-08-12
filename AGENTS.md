@@ -12,6 +12,7 @@ Obiettivo primario: aumentare lead qualificati per servizi web senza degradare f
 - CTA principali: richiesta preventivo e WhatsApp.
 
 ## Skills
+- `skills/perrucci-frontend/SKILL.md`: workflow obbligatorio per redesign, UI/UX, responsive e visual review del frontend. Legge e orchestra anche `skills/frontend-design/SKILL.md` e `skills/frontend-design-review/SKILL.md`.
 - `skills/perrucci-marketing/SKILL.md`: strategia, funnel, priorità e report.
 - `skills/perrucci-seo/SKILL.md`: audit tecnico e opportunità Search Console.
 - `skills/perrucci-content/SKILL.md`: contenuti, portfolio e post senza claim inventati.
