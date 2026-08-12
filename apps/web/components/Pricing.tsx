@@ -2,36 +2,34 @@ export default function Pricing() {
   return (
     <section className="section pricing-section" id="prezzi">
       <div className="container">
-        <div className="section-heading">
-          <span className="eyebrow">Prezzi</span>
-          <h2>Un punto di partenza chiaro, senza nascondere i costi ricorrenti.</h2>
+        <div className="section-heading section-heading--split">
+          <div>
+            <span className="eyebrow">Prezzi</span>
+            <h2>Due numeri. Due costi diversi.</h2>
+          </div>
+          <p>Il prezzo di partenza della realizzazione non è un abbonamento. La manutenzione è indicata separatamente.</p>
         </div>
 
-        <div className="pricing-layout">
-          <article className="price-card price-card--main">
-            <span className="price-label">Sito vetrina</span>
-            <div className="price-value"><strong>da €29</strong><span>+ IVA</span></div>
-            <p className="price-caption">Costo iniziale di realizzazione · una tantum</p>
-            <div className="price-rule" />
-            <ul>
-              <li><span aria-hidden="true">✓</span> Sito responsive</li>
-              <li><span aria-hidden="true">✓</span> Struttura moderna e professionale</li>
-              <li><span aria-hidden="true">✓</span> Basi tecniche SEO e performance</li>
-            </ul>
+        <div className="price-sheet">
+          <article className="price-block price-block--build">
+            <span>Sito vetrina</span>
+            <div className="price-display"><strong>da €29</strong><small>+ IVA</small></div>
+            <p>Costo iniziale di realizzazione · una tantum.</p>
           </article>
 
-          <div className="pricing-side">
-            <article className="price-card">
-              <span className="price-label">Manutenzione</span>
-              <div className="price-value price-value--small"><strong>€50</strong><span>/mese</span></div>
-              <p>Supporto e gestione ordinaria del sito.</p>
-            </article>
-            <article className="price-card price-card--note">
-              <strong>Progetti su preventivo</strong>
-              <p>Landing page, e-commerce, software, automazioni e progetti personalizzati vengono valutati in base alle esigenze reali.</p>
-              <a className="button button--primary" href="#contatti">Parliamo del tuo progetto <span aria-hidden="true">→</span></a>
-            </article>
+          <article className="price-block price-block--care">
+            <span>Manutenzione</span>
+            <div className="price-display"><strong>€50</strong><small>/mese</small></div>
+            <p>Supporto e gestione ordinaria del sito.</p>
+          </article>
+        </div>
+
+        <div className="pricing-custom">
+          <div>
+            <span className="eyebrow">Su preventivo</span>
+            <p>Landing page, e-commerce, software, automazioni e progetti personalizzati vengono valutati sulle esigenze reali.</p>
           </div>
+          <a className="button button--primary button--large" href="#contatti">Parliamo del tuo progetto <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

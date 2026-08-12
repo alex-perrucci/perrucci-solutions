@@ -7,8 +7,8 @@ import Hero from '@/components/Hero';
 import Portfolio from '@/components/Portfolio';
 import Pricing from '@/components/Pricing';
 import Process from '@/components/Process';
+import ProjectReel from '@/components/ProjectReel';
 import Services from '@/components/Services';
-import TrustBar from '@/components/TrustBar';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import WhyUs from '@/components/WhyUs';
 
@@ -39,15 +39,15 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <TrustBar />
+        <ProjectReel />
         <Services />
         <WhyUs />
         <Portfolio />
         <Pricing />
         <Process />
         <FAQ />
-        <Contact />
         <FinalCTA />
+        <Contact />
       </main>
       <Footer />
       <WhatsAppFloat />
