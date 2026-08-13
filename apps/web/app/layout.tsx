@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { Inter, Sora } from 'next/font/google';
+import { Manrope, Syne } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-manrope',
   display: 'swap'
 });
 
-const sora = Sora({
+const syne = Syne({
   subsets: ['latin'],
-  variable: '--font-sora',
+  variable: '--font-syne',
   display: 'swap'
 });
 
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="it" className={`${inter.variable} ${sora.variable}`}>
+    <html lang="it" className={`${manrope.variable} ${syne.variable}`}>
       <body>{children}</body>
     </html>
   );

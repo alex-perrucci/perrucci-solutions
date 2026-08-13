@@ -1,25 +1,28 @@
 const reasons = [
-  ['Design moderno', 'Interfacce curate, responsive e coerenti con il brand del cliente.'],
-  ['Sviluppo su misura', 'Niente soluzioni inutilmente complicate: tecnologia proporzionata al progetto.'],
-  ['Supporto diretto', 'Rapporto semplice e diretto durante sviluppo e manutenzione.'],
-  ['Performance', 'Attenzione a velocità, mobile usability e qualità tecnica.'],
-  ['Evoluzione', 'Possibilità di aggiungere nuove funzionalità, automazioni o software quando servono.']
+  ['Design che si capisce', 'Interfacce curate e responsive, senza sacrificare chiarezza per inseguire effetti.'],
+  ['Tecnologia proporzionata', 'Scegliamo la soluzione in base al progetto, non il contrario.'],
+  ['Supporto diretto', 'Un rapporto semplice durante sviluppo e manutenzione, senza passaggi inutili.'],
+  ['Velocità e mobile', 'Prestiamo attenzione a performance, leggibilità e usabilità sui dispositivi reali.'],
+  ['Spazio per evolvere', 'Il progetto può crescere con nuove pagine, funzioni, automazioni o software quando serve.']
 ];
 
 export default function WhyUs() {
   return (
-    <section className="section section--soft">
-      <div className="container why-grid">
-        <div className="why-intro">
-          <span className="eyebrow">Perché Perrucci Solutions</span>
-          <h2>Soluzioni digitali pensate per restare semplici da usare.</h2>
-          <p>Nessuna promessa da agenzia. Il punto è costruire bene ciò che serve oggi, lasciando spazio a ciò che potrà servire domani.</p>
+    <section className="section principles-section">
+      <div className="container">
+        <div className="section-heading section-heading--split">
+          <div>
+            <span className="eyebrow">Perché Perrucci Solutions</span>
+            <h2>Meno sovrastruttura. Più cose fatte bene.</h2>
+          </div>
+          <p>Non vendiamo una formula universale. Il punto è costruire bene ciò che serve oggi e lasciare spazio a ciò che potrà servire domani.</p>
         </div>
-        <div className="why-list">
-          {reasons.map(([title, text], index) => (
+
+        <div className="principles-grid">
+          {reasons.map(([title, text]) => (
             <article key={title}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <div><h3>{title}</h3><p>{text}</p></div>
+              <h3>{title}</h3>
+              <p>{text}</p>
             </article>
           ))}
         </div>

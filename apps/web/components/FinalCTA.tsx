@@ -3,13 +3,12 @@ export default function FinalCTA() {
     <section className="final-cta">
       <div className="container final-cta__inner">
         <div>
-          <span className="eyebrow">Il prossimo progetto</span>
-          <h2>Hai un progetto in mente?</h2>
-          <p>Raccontaci cosa vuoi realizzare. Ti aiutiamo a trovare una soluzione semplice, moderna e adatta alla tua attività.</p>
+          <span className="final-cta__label">Il prossimo progetto può essere il tuo.</span>
+          <h2>Hai qualcosa da mettere online?</h2>
         </div>
         <div className="final-cta__actions">
-          <a className="button button--primary button--large" href="#contatti">Richiedi un preventivo <span aria-hidden="true">→</span></a>
-          <a className="button button--secondary button--large" href="https://wa.me/393880956211" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a className="button button--dark button--large" href="#contatti">Richiedi un preventivo <span aria-hidden="true">→</span></a>
+          <a className="final-cta__link" href="https://wa.me/393880956211" target="_blank" rel="noreferrer">Oppure scrivici su WhatsApp ↗</a>
         </div>
       </div>
     </section>
