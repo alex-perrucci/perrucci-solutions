@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import Brand from './Brand';
 
 const links = [
-  ['Servizi', '#servizi'],
-  ['Portfolio', '#portfolio'],
-  ['Prezzi', '#prezzi'],
-  ['Come lavoriamo', '#processo'],
-  ['FAQ', '#faq']
+  ['Servizi', '/#servizi'],
+  ['Siti web Parma', '/siti-web-parma'],
+  ['Portfolio', '/#portfolio'],
+  ['Prezzi', '/#prezzi'],
+  ['Come lavoriamo', '/#processo'],
+  ['FAQ', '/#faq']
 ];
 
 export default function Header() {
@@ -25,7 +26,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a className="brand-link" href="#top" aria-label="Perrucci Solutions, torna all'inizio">
+        <a className="brand-link" href="/" aria-label="Perrucci Solutions, torna alla home">
           <Brand />
         </a>
 
@@ -33,7 +34,7 @@ export default function Header() {
           {links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
         </nav>
 
-        <a className="button button--primary header-cta" href="#contatti">Richiedi un preventivo</a>
+        <a className="button button--primary header-cta" href="/#contatti">Richiedi un preventivo</a>
 
         <button
           className="menu-toggle"
@@ -53,7 +54,7 @@ export default function Header() {
           {links.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>{label}<span aria-hidden="true">↗</span></a>
           ))}
-          <a className="button button--primary" href="#contatti" onClick={() => setOpen(false)}>Richiedi un preventivo</a>
+          <a className="button button--primary" href="/#contatti" onClick={() => setOpen(false)}>Richiedi un preventivo</a>
           <a className="button button--secondary" href="https://wa.me/393880956211" target="_blank" rel="noreferrer">WhatsApp</a>
         </nav>
       </div>
