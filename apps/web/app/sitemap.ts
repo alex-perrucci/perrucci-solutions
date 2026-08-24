@@ -8,6 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: 'https://perruccisolutions.com/',
       changeFrequency: 'weekly',
       priority: 1
+    },
+    {
+      url: 'https://perruccisolutions.com/siti-web-parma',
+      changeFrequency: 'monthly',
+      priority: 0.9
     }
   ];
 }
