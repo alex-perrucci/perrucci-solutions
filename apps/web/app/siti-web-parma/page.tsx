@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Portfolio from '@/components/Portfolio';
+import Pricing from '@/components/Pricing';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 
 export const metadata: Metadata = {
@@ -59,6 +61,9 @@ export default function SitiWebParmaPage() {
             </div>
           </div>
         </section>
+
+        <Portfolio />
+        <Pricing />
 
         <section className="section">
           <div className="container">
