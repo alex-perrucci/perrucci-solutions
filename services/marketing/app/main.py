@@ -5,9 +5,15 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from .config import CORS_ORIGINS, ADMIN_TOKEN
-from .db import init_db, insert_lead, insert_event, lead_stats
+from .db import init_db, insert_lead, insert_event, lead_stats, latest_gsc_snapshot, list_seo_tasks
 from .notifications import telegram
-from .scheduler import build_scheduler, weekly_report, weekly_content
+from .scheduler import (
+    build_scheduler,
+    daily_gsc_collection,
+    weekly_content,
+    weekly_report,
+    weekly_seo_review,
+)
 
 RATE: dict[str, deque[float]] = defaultdict(deque)
 
@@ -56,7 +62,7 @@ async def lifespan(_: FastAPI):
     scheduler.shutdown(wait=False)
 
 
-app = FastAPI(title='Perrucci Marketing API', version='0.1.0', lifespan=lifespan)
+app = FastAPI(title='Perrucci Marketing API', version='0.2.0', lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_credentials=False, allow_methods=['POST', 'GET'], allow_headers=['Content-Type', 'X-Admin-Token'])
 
 
@@ -87,6 +93,33 @@ def event(data: EventIn):
 def stats(request: Request, days: int = 7):
     require_admin(request)
     return lead_stats(max(1, min(days, 365)))
+
+
+@app.get('/admin/seo/tasks')
+def seo_tasks(request: Request, limit: int = 50, status: str = 'open'):
+    require_admin(request)
+    normalized_status = status if status in {'open', 'done', 'dismissed'} else 'open'
+    return {'items': list_seo_tasks(limit=max(1, min(limit, 200)), status=normalized_status)}
+
+
+@app.get('/admin/seo/snapshot')
+def seo_snapshot(request: Request):
+    require_admin(request)
+    return latest_gsc_snapshot() or {'available': False}
+
+
+@app.post('/admin/run/gsc-collect')
+async def run_gsc_collect(request: Request):
+    require_admin(request)
+    await daily_gsc_collection()
+    return {'ok': True}
+
+
+@app.post('/admin/run/seo-review')
+async def run_seo_review(request: Request):
+    require_admin(request)
+    await weekly_seo_review()
+    return {'ok': True}
 
 
 @app.post('/admin/run/weekly-report')
