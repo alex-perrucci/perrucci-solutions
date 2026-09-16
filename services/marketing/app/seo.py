@@ -99,7 +99,7 @@ def build_opportunities(current: dict, previous: dict | None = None) -> list[dic
             'ctr_28d': ctr,
             'position_28d': position,
             'previous_impressions_28d': int(round(_metric(previous_row, 'impressions'))),
-            'previous_clicks_28d': int(round(_metric(previous_row, 'clicks')),
+            'previous_clicks_28d': int(round(_metric(previous_row, 'clicks'))),
             'previous_position_28d': _metric(previous_row, 'position')
         }
 
