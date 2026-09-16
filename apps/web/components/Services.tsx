@@ -21,14 +21,21 @@ export default function Services() {
         </div>
 
         <div className="capability-list">
-          {primaryServices.map(([tag, title, text]) => (
-            <article className="capability-row" key={title}>
-              <span className="capability-tag">{tag}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <a href="#contatti" aria-label={`Parliamo di ${title}`}>Parliamone <span aria-hidden="true">→</span></a>
-            </article>
-          ))}
+          {primaryServices.map(([tag, title, text]) => {
+            const isLocalWebService = title === 'Siti vetrina';
+            const href = isLocalWebService ? '/siti-web-parma/' : '#contatti';
+            const label = isLocalWebService ? 'Siti web a Parma' : 'Parliamone';
+            return (
+              <article className="capability-row" key={title}>
+                <span className="capability-tag">{tag}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <a href={href} aria-label={isLocalWebService ? 'Scopri il servizio siti web a Parma' : `Parliamo di ${title}`}>
+                  {label} <span aria-hidden="true">→</span>
+                </a>
+              </article>
+            );
+          })}
         </div>
 
         <div className="service-extension">
