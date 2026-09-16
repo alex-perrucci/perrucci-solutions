@@ -8,7 +8,7 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
 GOOGLE_REFRESH_TOKEN = os.getenv('GOOGLE_REFRESH_TOKEN', '')
-GOOGLE_SEARCH_CONSOLE_SITE = os.getenv('GOOGLE_SEARCH_CONSOLE_SITE', 'https://perruccisolutions.com/')
+GOOGLE_SEARCH_CONSOLE_SITE = os.getenv('GOOGLE_SEARCH_CONSOLE_SITE', 'sc-domain:perruccisolutions.com')
 GBP_ACCOUNT_ID = os.getenv('GBP_ACCOUNT_ID', '')
 GBP_LOCATION_ID = os.getenv('GBP_LOCATION_ID', '')
 GBP_AUTO_PUBLISH = os.getenv('GBP_AUTO_PUBLISH', 'false').lower() == 'true'

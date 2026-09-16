@@ -7,21 +7,76 @@ import Pricing from '@/components/Pricing';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 
 export const metadata: Metadata = {
-  title: 'Siti web a Parma per aziende e professionisti',
-  description: 'Progettazione e sviluppo di siti web a Parma per aziende, professionisti e attività locali. Siti vetrina, landing page, e-commerce, restyling e manutenzione.',
-  alternates: { canonical: '/siti-web-parma' }
+  title: 'Siti web a Parma per aziende',
+  description: 'Siti web a Parma per aziende, professionisti e attività locali: siti vetrina, landing page, restyling, SEO tecnica e manutenzione con un referente diretto.',
+  alternates: { canonical: '/siti-web-parma' },
+  openGraph: {
+    title: 'Siti web a Parma per aziende | Perrucci Solutions',
+    description: 'Progettazione e sviluppo di siti web per aziende, professionisti e attività di Parma e provincia.',
+    url: 'https://perruccisolutions.com/siti-web-parma/'
+  }
 };
 
 const services = [
-  ['Siti vetrina', 'Una presenza online chiara, responsive e semplice da mantenere.'],
-  ['Landing page', 'Pagine focalizzate su un servizio, una campagna o una richiesta di contatto.'],
-  ['E-commerce', 'Progetti valutati sulle esigenze reali di catalogo, pagamenti e gestione.'],
-  ['Restyling e manutenzione', 'Interventi su siti esistenti e supporto continuativo quando serve.']
+  ['Siti aziendali', 'Una presenza online chiara e credibile per spiegare servizi, punti di forza e modalità di contatto.'],
+  ['Landing page', 'Pagine focalizzate su un servizio, una campagna o una richiesta di contatto precisa.'],
+  ['Restyling', 'Riorganizzazione di siti esistenti con attenzione a gerarchia, mobile, velocità e qualità percepita.'],
+  ['Manutenzione', 'Supporto continuativo per contenuti, aggiornamenti e interventi tecnici quando serve.']
 ];
+
+const projectSteps = [
+  ['01 · Obiettivo', 'Chi deve arrivare sul sito, cosa deve capire e quale azione vogliamo rendere semplice.'],
+  ['02 · Contenuti', 'Organizziamo messaggi, pagine e priorità prima di aggiungere elementi grafici o funzionalità.'],
+  ['03 · Sviluppo', 'Realizziamo un sito responsive, leggero e tecnicamente ordinato, verificandolo sui principali formati di schermo.'],
+  ['04 · Pubblicazione', 'Mettiamo online il progetto con metadata, indicizzazione e tracciamenti essenziali già predisposti.']
+];
+
+const localFaqs = [
+  ['Lavorate solo con clienti di Parma?', 'No. Perrucci Solutions lavora in tutta Italia. Per Parma e provincia, quando è utile al progetto, possiamo anche organizzare un confronto diretto in presenza.'],
+  ['Realizzate anche landing page per un singolo servizio?', 'Sì. Se l’obiettivo è promuovere un servizio specifico, una landing page può essere più adatta di un sito ampio. Struttura e call to action vengono definite in base all’obiettivo reale.'],
+  ['Il sito viene preparato per la SEO locale?', 'Prepariamo una base tecnica ordinata: struttura semantica, metadata, performance, mobile, sitemap, dati strutturati quando pertinenti e contenuti comprensibili. Il posizionamento organico dipende poi anche da concorrenza, autorevolezza e segnali esterni.'],
+  ['Potete rifare un sito aziendale già esistente?', 'Sì. Prima valutiamo cosa conviene mantenere e cosa va riprogettato, così il restyling non diventa una ricostruzione inutile di ciò che funziona già.'],
+  ['Posso gestire il sito dopo la consegna?', 'Dipende dalla soluzione scelta. Possiamo predisporre una gestione semplice oppure occuparci noi della manutenzione, definendo prima cosa resta incluso.']
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://perruccisolutions.com/siti-web-parma/#service',
+      name: 'Realizzazione siti web a Parma',
+      url: 'https://perruccisolutions.com/siti-web-parma/',
+      description: 'Progettazione e sviluppo di siti web, landing page, restyling e manutenzione per aziende, professionisti e attività locali di Parma e provincia.',
+      serviceType: ['Siti aziendali', 'Landing page', 'Restyling siti web', 'Manutenzione siti web'],
+      provider: {
+        '@type': 'ProfessionalService',
+        name: 'Perrucci Solutions',
+        url: 'https://perruccisolutions.com',
+        telephone: '+393880956211',
+        email: 'info@perruccisolutions.com'
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Parma' },
+        { '@type': 'AdministrativeArea', name: 'Provincia di Parma' }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://perruccisolutions.com/siti-web-parma/#faq',
+      mainEntity: localFaqs.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer }
+      }))
+    }
+  ]
+};
 
 export default function SitiWebParmaPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Header />
       <main>
         <section className="hero">
@@ -62,14 +117,60 @@ export default function SitiWebParmaPage() {
           </div>
         </section>
 
+        <section className="section">
+          <div className="container">
+            <div className="section-heading section-heading--split">
+              <div><span className="eyebrow">Per aziende e professionisti</span><h2>Un sito deve spiegare bene l’attività prima ancora di impressionare.</h2></div>
+              <div>
+                <p>Per un’impresa locale il sito spesso è il punto in cui una persona verifica chi sei dopo averti trovato su Google, sui social, tramite passaparola o da una ricerca diretta. Per questo lavoriamo prima su messaggio, servizi, prove e percorso di contatto.</p>
+                <p>La stessa logica vale per studi professionali, attività commerciali e piccole aziende: una pagina deve aiutare il visitatore a capire rapidamente cosa offri, per chi è il servizio, come lavori e quale sia il prossimo passo. Evitiamo sezioni inserite solo per riempire spazio o pacchetti tecnici che non portano valore al progetto.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <Portfolio />
         <Pricing />
 
         <section className="section">
           <div className="container">
             <div className="section-heading section-heading--split">
-              <div><span className="eyebrow">Come lavoriamo</span><h2>Prima il messaggio, poi il codice.</h2></div>
+              <div><span className="eyebrow">Processo</span><h2>Prima il messaggio, poi il codice.</h2></div>
               <p>Definiamo obiettivo, contenuti e percorso di contatto; poi realizziamo una soluzione responsive e tecnicamente ordinata. Per progetti locali possiamo lavorare anche direttamente presso il cliente.</p>
+            </div>
+            <div className="hero-capabilities">
+              {projectSteps.map(([title, text]) => <div key={title}><strong>{title}</strong><span>{text}</span></div>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="section-heading section-heading--split">
+              <div><span className="eyebrow">SEO e performance</span><h2>Una base tecnica che non ostacola la crescita.</h2></div>
+              <div>
+                <p>Un sito locale non si posiziona perché ripete “Parma” decine di volte. Serve una pagina utile, veloce, accessibile da smartphone e abbastanza chiara da permettere a Google e alle persone di comprenderne contenuto e contesto.</p>
+                <p>Durante lo sviluppo curiamo struttura delle pagine, gerarchia dei titoli, metadata, sitemap, canonical, dati strutturati quando pertinenti e collegamenti interni. Questi elementi non sostituiscono autorevolezza, recensioni, contenuti e concorrenza reale, ma evitano di partire con una base tecnica debole.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section faq-section" id="faq-parma">
+          <div className="container faq-grid">
+            <div className="faq-intro">
+              <span className="eyebrow">FAQ · Parma</span>
+              <h2>Domande sul servizio</h2>
+              <p>Le risposte più utili prima di valutare il progetto.</p>
+              <a href="#contatti">Parlaci del tuo sito <span aria-hidden="true">→</span></a>
+            </div>
+            <div className="faq-list">
+              {localFaqs.map(([question, answer], index) => (
+                <details key={question} open={index === 0}>
+                  <summary><span>{question}</span><i aria-hidden="true" /></summary>
+                  <div><p>{answer}</p></div>
+                </details>
+              ))}
             </div>
           </div>
         </section>

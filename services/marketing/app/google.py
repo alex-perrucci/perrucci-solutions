@@ -18,30 +18,99 @@ async def access_token() -> str | None:
         return response.json()['access_token']
 
 
-async def search_console_summary(days: int = 28) -> dict | None:
+def _gsc_window(days: int, offset_days: int = 0) -> tuple[date, date]:
+    """Return a settled Search Console window, keeping two days of API lag."""
+    end = date.today() - timedelta(days=2 + offset_days)
+    start = end - timedelta(days=days - 1)
+    return start, end
+
+
+async def search_console_query(
+    start: date,
+    end: date,
+    dimensions: list[str] | None = None,
+    row_limit: int = 1000
+) -> list[dict]:
     token = await access_token()
     if not token or not config.GOOGLE_SEARCH_CONSOLE_SITE:
-        return None
-    end = date.today() - timedelta(days=2)
-    start = end - timedelta(days=days - 1)
+        return []
+
     site = quote(config.GOOGLE_SEARCH_CONSOLE_SITE, safe='')
     url = f'https://www.googleapis.com/webmasters/v3/sites/{site}/searchAnalytics/query'
-    headers = {'Authorization': f'Bearer {token}'}
-    base = {'startDate': start.isoformat(), 'endDate': end.isoformat()}
+    payload: dict = {
+        'startDate': start.isoformat(),
+        'endDate': end.isoformat(),
+        'rowLimit': max(1, min(row_limit, 25000)),
+        'dataState': 'final'
+    }
+    if dimensions:
+        payload['dimensions'] = dimensions
 
     async with httpx.AsyncClient(timeout=30) as client:
-        totals_response = await client.post(url, headers=headers, json={**base, 'rowLimit': 1})
-        totals_response.raise_for_status()
-        totals_rows = totals_response.json().get('rows', [])
-        query_response = await client.post(url, headers=headers, json={**base, 'dimensions': ['query'], 'rowLimit': 50})
-        query_response.raise_for_status()
-        rows = query_response.json().get('rows', [])
+        response = await client.post(
+            url,
+            headers={'Authorization': f'Bearer {token}'},
+            json=payload
+        )
+        response.raise_for_status()
+        return response.json().get('rows', [])
+
+
+async def search_console_dataset(days: int = 28, offset_days: int = 0) -> dict | None:
+    """Fetch one coherent GSC dataset used by the SEO decision engine."""
+    if not all([
+        config.GOOGLE_CLIENT_ID,
+        config.GOOGLE_CLIENT_SECRET,
+        config.GOOGLE_REFRESH_TOKEN,
+        config.GOOGLE_SEARCH_CONSOLE_SITE
+    ]):
+        return None
+
+    start, end = _gsc_window(days, offset_days)
+    totals_rows = await search_console_query(start, end, row_limit=1)
+    queries = await search_console_query(start, end, ['query'], 1000)
+    pages = await search_console_query(start, end, ['page'], 1000)
+    query_pages = await search_console_query(start, end, ['query', 'page'], 2500)
 
     totals = totals_rows[0] if totals_rows else {}
     clicks = float(totals.get('clicks', 0))
     impressions = float(totals.get('impressions', 0))
-    top = sorted(rows, key=lambda r: r.get('impressions', 0), reverse=True)[:8]
-    return {'clicks': round(clicks), 'impressions': round(impressions), 'ctr': (clicks / impressions if impressions else 0), 'queries': top}
+    ctr = float(totals.get('ctr', clicks / impressions if impressions else 0))
+    position = float(totals.get('position', 0))
+
+    return {
+        'start_date': start.isoformat(),
+        'end_date': end.isoformat(),
+        'clicks': round(clicks),
+        'impressions': round(impressions),
+        'ctr': ctr,
+        'position': position,
+        'queries': sorted(queries, key=lambda row: row.get('impressions', 0), reverse=True),
+        'pages': sorted(pages, key=lambda row: row.get('impressions', 0), reverse=True),
+        'query_pages': sorted(query_pages, key=lambda row: row.get('impressions', 0), reverse=True)
+    }
+
+
+async def search_console_compare(days: int = 28) -> tuple[dict | None, dict | None]:
+    current = await search_console_dataset(days)
+    previous = await search_console_dataset(days, offset_days=days)
+    return current, previous
+
+
+async def search_console_summary(days: int = 28) -> dict | None:
+    dataset = await search_console_dataset(days)
+    if not dataset:
+        return None
+    return {
+        'start_date': dataset['start_date'],
+        'end_date': dataset['end_date'],
+        'clicks': dataset['clicks'],
+        'impressions': dataset['impressions'],
+        'ctr': dataset['ctr'],
+        'position': dataset['position'],
+        'queries': dataset['queries'][:8],
+        'pages': dataset['pages'][:8]
+    }
 
 
 async def publish_gbp_post(summary: str, target_url: str) -> str | None:
