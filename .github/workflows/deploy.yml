@@ -68,7 +68,25 @@ jobs:
             docker exec fluxa-caddy-1 mkdir -p /data/sites-enabled
             docker cp infra/Caddyfile fluxa-caddy-1:/data/sites-enabled/perrucci.caddy
             docker exec fluxa-caddy-1 caddy validate --config /etc/caddy/Caddyfile
-            docker exec fluxa-caddy-1 caddy reload --config /etc/caddy/Caddyfile
+
+            # The shared Caddy has admin off, so caddy reload cannot use the
+            # local admin API. Restarting the container safely reloads the
+            # mounted root Caddyfile and the persistent drop-in.
+            docker restart fluxa-caddy-1 >/dev/null
+
+            for attempt in $(seq 1 30); do
+              status="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' fluxa-caddy-1)"
+              if [ "$status" = "healthy" ] || [ "$status" = "running" ]; then
+                echo "Shared Caddy is $status."
+                break
+              fi
+              if [ "$attempt" -eq 30 ]; then
+                echo "Shared Caddy did not become healthy after restart (status=$status)." >&2
+                docker logs --tail 100 fluxa-caddy-1 >&2 || true
+                exit 1
+              fi
+              sleep 2
+            done
 
             docker image prune -f
           REMOTE
