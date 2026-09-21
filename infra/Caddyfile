@@ -12,6 +12,26 @@ perruccisolutions.com, www.perruccisolutions.com {
 	}
 }
 
+legal.perruccisolutions.com {
+	import common_security
+	header X-Robots-Tag "noindex, nofollow, noarchive"
+
+	@legal_root path /
+	rewrite @legal_root /tifregano-cosi
+
+	@legal_privacy path /privacy /privacy/
+	rewrite @legal_privacy /tifregano-cosi/privacy
+
+	@legal_terms path /terms /terms/
+	rewrite @legal_terms /tifregano-cosi/terms
+
+	reverse_proxy perrucci-web:80
+	log {
+		output stdout
+		format json
+	}
+}
+
 api.perruccisolutions.com {
 	import common_security
 	request_body {
