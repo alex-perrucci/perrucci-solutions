@@ -55,6 +55,20 @@ jobs:
             git fetch --prune origin main
             git checkout main
             git reset --hard origin/main
+
             docker compose up -d --build --remove-orphans
+
+            # Perrucci Solutions shares the Fluxa edge proxy. Keep the
+            # version-controlled Caddy drop-in synchronized on every deploy.
+            if ! docker inspect fluxa-caddy-1 >/dev/null 2>&1; then
+              echo 'Shared reverse proxy container fluxa-caddy-1 was not found.' >&2
+              exit 1
+            fi
+
+            docker exec fluxa-caddy-1 mkdir -p /data/sites-enabled
+            docker cp infra/Caddyfile fluxa-caddy-1:/data/sites-enabled/perrucci.caddy
+            docker exec fluxa-caddy-1 caddy validate --config /etc/caddy/Caddyfile
+            docker exec fluxa-caddy-1 caddy reload --config /etc/caddy/Caddyfile
+
             docker image prune -f
           REMOTE
