@@ -5,9 +5,9 @@ export default function Pricing() {
         <div className="section-heading section-heading--split">
           <div>
             <span className="eyebrow">Prezzi</span>
-            <h2>Due numeri. Due costi diversi.</h2>
+            <h2>Si parte da qui. Senza sorprese sul tipo di costo.</h2>
           </div>
-          <p>Il prezzo di partenza della realizzazione non è un abbonamento. La manutenzione è indicata separatamente.</p>
+          <p>La realizzazione iniziale e la manutenzione sono due voci distinte. Per ogni progetto definiamo insieme ciò che è incluso.</p>
         </div>
 
         <div className="price-sheet">

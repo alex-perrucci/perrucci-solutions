@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test:brand": "node scripts/verify-brand.mjs",
     "lint": "next lint || true",
     "typecheck": "tsc --noEmit"
   },

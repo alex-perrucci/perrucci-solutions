@@ -15,9 +15,9 @@ export default function Services() {
         <div className="section-heading section-heading--split">
           <div>
             <span className="eyebrow">Servizi</span>
-            <h2>Costruiamo il pezzo digitale che ti serve. Non il pacchetto più grande.</h2>
+            <h2>Un sito che lavora bene, prima di tutto.</h2>
           </div>
-          <p>Il sito viene prima. Software e automazioni entrano in gioco solo quando risolvono un’esigenza concreta.</p>
+          <p>Ogni progetto parte da una domanda semplice: cosa deve capire o fare chi arriva sul tuo sito? Da qui prendono forma struttura, contenuti e tecnologia.</p>
         </div>
 
         <div className="capability-list">
@@ -41,7 +41,7 @@ export default function Services() {
         <div className="service-extension">
           <div>
             <span className="eyebrow eyebrow--light">Quando il sito non basta</span>
-            <strong>Possiamo estendere il progetto.</strong>
+            <strong>E se serve qualcosa in più, lo costruiamo.</strong>
           </div>
           <ul>
             {advancedServices.map((service) => <li key={service}>{service}</li>)}

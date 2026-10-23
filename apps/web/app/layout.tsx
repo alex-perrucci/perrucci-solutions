@@ -1,19 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { Manrope, Syne } from 'next/font/google';
 import './globals.css';
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  variable: '--font-manrope',
-  display: 'swap'
-});
-
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  display: 'swap'
-});
+import './premium.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perruccisolutions.com'),
@@ -21,15 +9,15 @@ export const metadata: Metadata = {
     default: 'Perrucci Solutions | Siti web, software e automazioni',
     template: '%s | Perrucci Solutions'
   },
-  description: 'Creazione siti web, landing page, e-commerce, software e automazioni per aziende e professionisti in tutta Italia.',
+  description: 'Perrucci Solutions: siti web, restyling, software e automazioni per aziende e professionisti. Un referente diretto, soluzioni digitali chiare in tutta Italia.',
   alternates: { canonical: '/' },
   icons: {
-    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }, { url: '/identity/favicon/favicon.ico', sizes: 'any' }],
     apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }]
   },
   openGraph: {
     title: 'Perrucci Solutions | Siti web, software e automazioni',
-    description: 'Creazione siti web, landing page, e-commerce, software e automazioni per aziende e professionisti in tutta Italia.',
+    description: 'Il digitale, fatto bene. Siti web, software e automazioni costruiti intorno alla tua attività.',
     url: 'https://perruccisolutions.com',
     siteName: 'Perrucci Solutions',
     locale: 'it_IT',
@@ -44,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Perrucci Solutions | Siti web, software e automazioni',
-    description: 'Creazione siti web, landing page, e-commerce, software e automazioni per aziende e professionisti in tutta Italia.',
+    description: 'Il digitale, fatto bene. Siti web, software e automazioni costruiti intorno alla tua attività.',
     images: ['/brand/og-image.png']
   },
   robots: { index: true, follow: true }
@@ -52,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="it" className={`${manrope.variable} ${syne.variable}`}>
+    <html lang="it">
       <body>{children}</body>
     </html>
   );

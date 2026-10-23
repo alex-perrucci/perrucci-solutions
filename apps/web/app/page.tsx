@@ -7,7 +7,6 @@ import Hero from '@/components/Hero';
 import Portfolio from '@/components/Portfolio';
 import Pricing from '@/components/Pricing';
 import Process from '@/components/Process';
-import ProjectReel from '@/components/ProjectReel';
 import Services from '@/components/Services';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import WhyUs from '@/components/WhyUs';
@@ -34,12 +33,11 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="ps-site">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Header />
-      <main>
+      <main className="ps-home">
         <Hero />
-        <ProjectReel />
         <Services />
         <WhyUs />
         <Portfolio />
@@ -51,6 +49,6 @@ export default function Home() {
       </main>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </div>
   );
 }
