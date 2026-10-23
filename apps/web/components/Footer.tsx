@@ -5,17 +5,18 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-main">
         <div className="footer-brand">
-          <a href="#top" aria-label="Perrucci Solutions, torna all'inizio"><Brand inverse /></a>
+          <a href="/#top" aria-label="Perrucci Solutions, torna all'inizio"><Brand inverse /></a>
           <p>Sviluppo web · Software · Consulenza</p>
         </div>
 
         <div className="footer-column">
           <span>Navigazione</span>
-          <a href="#servizi">Servizi</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#prezzi">Prezzi</a>
-          <a href="#processo">Come lavoriamo</a>
-          <a href="#faq">FAQ</a>
+          <a href="/#servizi">Servizi</a>
+          <a href="/#portfolio">Portfolio</a>
+          <a href="/#prezzi">Prezzi</a>
+          <a href="/#processo">Come lavoriamo</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/siti-web-parma/">Siti web a Parma</a>
         </div>
 
         <div className="footer-column">

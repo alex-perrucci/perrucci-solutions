@@ -32,9 +32,9 @@ export default function Portfolio() {
         <div className="section-heading section-heading--split section-heading--inverse">
           <div>
             <span className="eyebrow eyebrow--light">Portfolio</span>
-            <h2>Lavori reali. Aprili.</h2>
+            <h2>I progetti parlano da soli.</h2>
           </div>
-          <p>Preferiamo mostrarti i progetti invece di ricostruirli dentro un mockup. Ogni riga porta al sito reale.</p>
+          <p>Una selezione di progetti online. Puoi visitarli direttamente per farti un&apos;idea del lavoro.</p>
         </div>
 
         <div className="project-index">

@@ -1,115 +1,44 @@
-# Perrucci Solutions — Design Direction
+# Perrucci Solutions — Precision / website redesign
 
-## Subject
+## Audience and page job
 
-Perrucci Solutions is an independent Italian web studio, not a SaaS product and not a developer portfolio. Its strongest commercial proof is the combination of a clear offer, direct access to the person doing the work, and real projects that visitors can open themselves.
+Italian small businesses, local operators and independent professionals looking for a credible website and a direct technical partner. The homepage must communicate the offer at first glance, give immediate access to real work, and convert interested visitors to an actual quote request or WhatsApp conversation.
 
-## Audience and single job
+## Brand tokens
 
-Audience: Italian SMEs, professionals and local businesses that need a new website, a redesign or a clearer digital presence.
+| Name | Value | Role |
+| --- | --- | --- |
+| Night | `#0B121B` | Primary dark canvas |
+| Ink | `#101820` | Headlines and body text |
+| Paper | `#F6F8FA` | Light page canvas |
+| White | `#FFFFFF` | Content surface |
+| Signal | `#326BFF` | Punctual blue emphasis |
+| Action | `#1746C8` | Accessible primary CTA |
 
-Single homepage job: turn a warm prospect into a quote request or WhatsApp conversation after they understand the offer and inspect real work.
+Supporting Slate `#526171`, Line `#D9E0E6`, and Blue Tint `#DCE7FF` come directly from the provided identity system.
 
-## Direction: Studio Proof Sheet
+## Typography
 
-Tone: precise, editorial, modern, quietly technical. The page should feel like the public-facing proof sheet of a small digital studio: strong typography, visible structure, direct language and real work. It should not look like a startup dashboard or an agency template.
+- Display: Nimbus Sans / Helvetica Neue, strong weight, compact line height, restrained tracking.
+- Reading: Helvetica Neue / Arial, normal weight, readable line height and line length.
+- Labels: same neo-grotesk family, medium weight and concise uppercase annotations when useful.
 
-### Color tokens
+## Layout concept
 
-- **Ink** `#08111F` — primary dark field and high-contrast text
-- **Paper** `#F6F8FB` — main page background
-- **White** `#FFFFFF` — forms and selective high-contrast surfaces
-- **Cobalt** `#245BFF` — brand/action color
-- **Cobalt mist** `#DCE6FF` — subtle states and rules
-- **Steel** `#667085` — supporting copy
+**Quiet precision.** A wide, asymmetric editorial hero on a cold-white canvas leads to a large official PS monogram in a measured circular construction field. Horizontal section rules and consistent alignment carry the site; real project names and domains are showcased as proof. Sections alternate between Paper/White and Night to define the browsing rhythm.
 
-No decorative rainbow gradients. Cobalt is the only strong chromatic voice.
+## Signature
 
-### Typography
+The sole expressive signature is a **precision field** around the supplied PS monogram: thin circular measurement lines and a small blue point echo the approved website-art-direction asset. The mark itself is never distorted, shadowed, rotated or animated. The precision field is part of the page composition, not an alternative logo.
 
-- **Display / brand voice:** Syne, 600–800. Used for hero, section titles and project names.
-- **Body / UI:** Manrope, 400–700. Used for copy, navigation, forms and buttons.
+## Motion and interaction
 
-No Inter/Roboto/Arial/Space Grotesk. Type itself should carry much of the identity.
-
-### Layout concept
-
-Use a disciplined 12-column editorial grid, but break symmetry at deliberate moments. The hero is text-led rather than mockup-led. Services are presented as large horizontal capability rows rather than a grid of repeated cards. Portfolio is a full-width project index with real domains and external links.
-
-Desktop sketch:
-
-```text
-┌──────────────────────────────────────────────────────────────────────┐
-│ PS / PERRUCCI SOLUTIONS       services work pricing process  [CTA]  │
-├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  SITI WEB CHE                                                        │
-│  FANNO IL LAVORO.                         STUDIO NOTE / CAPABILITIES  │
-│  Huge, left-weighted thesis                                          │
-│  copy + quote CTA                                                    │
-│                                                                      │
-├──────── SELECTED WORK / REAL PROJECT REEL ──────────────────────────┤
-│ GuidaLavoroItalia │ Maltservice │ Fluxa Platform │ EasyRevoke        │
-├──────────────────────────────────────────────────────────────────────┤
-│ SERVICES      large capability rows, not cards                       │
-├──────────────────────────────────────────────────────────────────────┤
-│ WHY           concise proof-oriented statements                      │
-├──────────────────────────────────────────────────────────────────────┤
-│ WORK          full-width project index / open each project           │
-├──────────────────────────────────────────────────────────────────────┤
-│ €29 one-time initial build         €50/month maintenance             │
-├──────────────────────────────────────────────────────────────────────┤
-│ real 5-step process                                                     │
-├──────────────────────────────────────────────────────────────────────┤
-│ FAQ                                                                  │
-├──────────────────────────────────────────────────────────────────────┤
-│ dark contact close + form                                            │
-└──────────────────────────────────────────────────────────────────────┘
-```
-
-## Signature element
-
-**The Proof Reel.** Real project names and domains appear immediately below the hero as a strong horizontal editorial index and return later as the full portfolio. No fake browser screenshots. The work itself is the proof.
-
-This is the one deliberate visual risk: instead of trying to impress with a fabricated hero mockup, the homepage exposes the studio's real project index almost immediately.
-
-## Motion
-
-Minimal and orchestrated:
-- one hero entrance sequence
-- thin rule / text shift on project hover
-- small arrow movement on actionable links
-- no continuous floating, particles, parallax or mouse followers
-- respect `prefers-reduced-motion`
+CSS-only motion: a single restrained first-load reveal and subtle focus/hover feedback. No scroll-jacking, parallax, ornamental glass cards or large animation dependencies. `prefers-reduced-motion` disables all nonessential motion. Interaction remains available with keyboard, touch and screen reader.
 
 ## Anti-template critique
 
-Rejected from the previous direction:
-- fake browser/project mockups that visually imply screenshots
-- floating cards in the hero
-- repeated card grids across services and portfolio
-- bento layout used as a style rather than because the information requires it
-- Sora + Inter combination, which felt too neutral for the desired identity
-- rounded containers around almost every concept
-- decorative circles/glows and generic SaaS visual language
+Rejected: centered generic SaaS hero, glowing gradient spheres, fake product dashboards, bento card grids, fabricated customer metrics, decorative process numbers without meaning, and a multi-accent color palette. The design relies on the exact approved identity, disciplined composition, actual portfolio links and clear words instead.
 
-The new design should remain recognizable as Perrucci Solutions even if the logo is hidden: dark ink + cobalt, oversized Syne typography, the real project Proof Reel and the direct studio-like structure are the identity.
+## Constraints
 
-## Conversion hierarchy
-
-Primary action: **Richiedi un preventivo**.
-
-Secondary action: **WhatsApp**.
-
-Portfolio links are proof actions, not competing primary CTAs.
-
-## Pricing communication
-
-Never conflate the two prices:
-- `da €29 + IVA` = one-time initial creation cost for the showcase website starting point
-- `€50/mese` = maintenance
-- landing pages, e-commerce, software, automations and custom work = quote-based
-
-## Mobile intent
-
-Mobile must not merely stack the desktop composition. The Proof Reel becomes a vertical four-row index, hero typography stays expressive but controlled, capability rows become compact disclosure-like blocks, pricing stays explicitly separated, and the contact form remains easy to complete at 360px.
+Preserve Next.js static export, `/leads` integration with honeypot, public contact details, original SEO routes, robots/sitemap/JSON-LD, and distinct €29 + IVA creation and €50/month maintenance costs. The brand kit's current design is a creative proposal; avoid unverified company claims and trademarks.
