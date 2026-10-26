@@ -6,6 +6,7 @@ const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'out');
 const file = (path) => readFileSync(resolve(root, path), 'utf8');
 const html = readFileSync(resolve(output, 'index.html'), 'utf8');
+const parmaHtml = readFileSync(resolve(output, 'siti-web-parma/index.html'), 'utf8');
 let checks = 0;
 
 function check(condition, label) {
@@ -53,4 +54,8 @@ check(css.includes('prefers-reduced-motion: reduce'), 'Movimento ridotto gestito
 check(css.includes('max-width: 650px') && css.includes('max-width: 900px'), 'Reflow mobile/tablet previsto');
 check(css.includes('#0b121b') && css.includes('#326bff') && css.includes('#f6f8fa'), 'Palette ufficiale applicata');
 
+const header = file('components/Header.tsx');
+check((header.match(/href="#contatti"/g) || []).length === 2, 'Entrambe le CTA header puntano al modulo nella pagina corrente');
+check(!header.includes('href="/#contatti"'), 'Le CTA header non riportano alla homepage');
+check(parmaHtml.includes('id="contatti"'), 'La landing Parma include il modulo contatti locale');
 console.log(`\n${checks} controlli strutturali superati.`);
