@@ -33,7 +33,7 @@ export default function Header() {
           {links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
         </nav>
 
-        <a className="button button--primary header-cta" href="/#contatti">Parliamo del tuo progetto <span aria-hidden="true">↗</span></a>
+        <a className="button button--primary header-cta" href="#contatti">Parliamo del tuo progetto <span aria-hidden="true">↗</span></a>
 
         <button
           className="menu-toggle"
@@ -53,7 +53,7 @@ export default function Header() {
           {links.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>{label}<span aria-hidden="true">↗</span></a>
           ))}
-          <a className="button button--primary" href="/#contatti" onClick={() => setOpen(false)}>Parliamo del tuo progetto</a>
+          <a className="button button--primary" href="#contatti" onClick={() => setOpen(false)}>Parliamo del tuo progetto</a>
           <a className="button button--secondary" href="https://wa.me/393880956211" target="_blank" rel="noreferrer">WhatsApp</a>
         </nav>
       </div>
